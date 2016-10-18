@@ -8,6 +8,7 @@ use backend\models\AlumnoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * AlumnoController implements the CRUD actions for Alumno model.
@@ -57,9 +58,17 @@ class AlumnoController extends Controller
     }
      public function actionViewconsulta($id)
     {
-        return $this->render('viewconsulta', [
-            'model' => $this->findModel($id),
-        ]);
+       $query=Alumno::find()->where(['Matricula'=>$id])->one();
+      // $query->leftJoin([
+        //'carrera'
+        //], 'alumno.carrera=carrera.idcarrera');
+
+//       $model = new ActiveDataProvider([
+  //          'query' => $query,
+    //    ]);
+
+       return $this->render('viewconsulta', ['model'=>$query]);
+       
     }
 
     /**

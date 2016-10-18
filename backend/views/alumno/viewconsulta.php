@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->Matricula;
 //$this->params['breadcrumbs'][] = ['label' => 'Alumnos', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
-?>
+?> 
 <div class="alumno-view">
 <?= Html::button('Volver', [
             'name' => 'btnBack',
@@ -30,8 +30,9 @@ $this->title = $model->Matricula;
             'apellidomaterno',
             'semestre',
             'telefono',
-            'ciudad',
-            'carrera',
+            'ciudad0.ciudad',
+            'carrera0.carrera',
+            
            // 'usuario',
         ],
     ]) ?>

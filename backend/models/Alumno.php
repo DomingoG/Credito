@@ -99,4 +99,6 @@ class Alumno extends \yii\db\ActiveRecord
     {
         return $this->hasMany(AlumnoCreditos::className(), ['alumno' => 'Matricula']);
     }
+
+    
 }
