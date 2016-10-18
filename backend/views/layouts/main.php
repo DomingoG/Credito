@@ -37,7 +37,7 @@ AppAsset::register($this);
     $menuItems = [
        // ['label' => 'Home', 'url' => ['/site/index']],
         //['label' => 'Alumno', 'url' => ['/site/creditolista']],
-       /* ['label' => 'SuperAdmin',
+        ['label' => 'SuperAdmin',
         'items' => [
             ['label' => 'ISC', 'url' => ['alumcreditos/isc', 'tag' => 'new']],
             ['label' => 'I.Civil', 'url' => ['alumcreditos/civil', 'tag' => 'new']],
@@ -45,7 +45,7 @@ AppAsset::register($this);
             ['label' => 'I.Industrial', 'url' => ['alumcreditos/industrial', 'tag' => 'new']],
             ['label' => 'I.Ambiental', 'url' => ['alumcreditos/ambiental', 'tag' => 'new']],
             ],
-          ],*/
+          ],
 
         ['label' => 'Administrativo', 'url' => ['#'],
         'items' => [

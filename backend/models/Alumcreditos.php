@@ -34,9 +34,9 @@ class Alumcreditos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['credito', 'departamento', 'alumno', 'fecha', 'aprobado'], 'required'],
+            [['credito', 'departamento', 'alumno', 'fecha','fechaaprobacion', 'aprobado'], 'required'],
             [['credito', 'departamento', 'alumno'], 'integer'],
-            [['fecha'], 'safe'],
+            [['fecha','fechaaprobacion'], 'safe'],
             [['aprobado'], 'string'],
             [['credito'], 'exist', 'skipOnError' => true, 'targetClass' => Creditos::className(), 'targetAttribute' => ['credito' => 'idcredito']],
             [['departamento'], 'exist', 'skipOnError' => true, 'targetClass' => Administrativo::className(), 'targetAttribute' => ['departamento' => 'iddepartamento']],
@@ -55,6 +55,7 @@ class Alumcreditos extends \yii\db\ActiveRecord
             'departamento' => 'Departamento',
             'alumno' => 'Alumno',
             'fecha' => 'Fecha',
+            'fechaaprobacion'=>'Fecha Aprobacion',
             'aprobado' => 'Aprobado',
         ];
     }

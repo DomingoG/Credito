@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                return $data->getApellido();
             },
             ],
-            'fecha',
+            'fechaaprobacion',
 
              'aprobado',
 

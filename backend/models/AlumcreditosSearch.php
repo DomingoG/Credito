@@ -19,7 +19,7 @@ class AlumcreditosSearch extends Alumcreditos
     {
         return [
             [['idreporte', 'credito', 'departamento', 'alumno'], 'integer'],
-            [['fecha', 'aprobado'], 'safe'],
+            [['fecha','fechaaprobacion', 'aprobado'], 'safe'],
             [['alumno.nombre'], 'safe'],
             [['alumno.apellidopaterno'], 'safe'],
             [['creditos.actividad'], 'safe'],
@@ -139,6 +139,7 @@ class AlumcreditosSearch extends Alumcreditos
             'alumno' => $this->alumno,
             //'alumno.Matricula' => $this->alumno,
             'fecha' => $this->fecha,
+            //'fechaaprobacion' => $this->fecha,
 
         ]);
 

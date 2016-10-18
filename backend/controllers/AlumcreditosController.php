@@ -117,8 +117,8 @@ class AlumcreditosController extends Controller
 
      public function actionListaaprobados(){
             $apro='si';
-            /*$id=Yii::$app->user->identity->id;
-            $al = Administrativo::find()->where(['usuario' => $id])->one();   
+            $id=Yii::$app->user->identity->id;
+           /* $al = Administrativo::find()->where(['usuario' => $id])->one();   
             $num=$al->iddepartamento;*/
 
            $searchModel = new AlumcreditosSearch();
@@ -153,8 +153,7 @@ class AlumcreditosController extends Controller
             $al = Administrativo::find()->where(['usuario' => $id])->one();   
             $num=$al->iddepartamento;
 
-           $searchModel = new AlumcreditosSearch();
-           
+           $searchModel = new AlumcreditosSearch();   
            $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$num,$apro);
 
         return $this->render('activaralumno', [
@@ -206,6 +205,7 @@ class AlumcreditosController extends Controller
                 {
                     $al = Alumcreditos::find()->where(['idreporte' => $id])->one();   
                     $al->aprobado='Si';
+                    $al->fechaaprobacion=date('Y-m-d');
                     $al->save();
                    // return $this->redirect(["reportealumnos"]);   
                 }

@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             ],
             'fecha',
+            'fechaaprobacion',
 
              'aprobado',
 
