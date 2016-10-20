@@ -100,6 +100,24 @@ class SiteController extends Controller
                         'alumno'=>$al->Matricula,
                         'aprobado'=>'Si',
                         ])->count();
+
+                    $inscritosnow=Alumcreditos::find()->where([
+                        'credito'=>$credito->idcredito,
+                        ])->count();
+                    $limit=$credito->limite;
+                    //si mostrar es 1:se puede ver encaso contrario: no se vera btom
+                    if($limit == 0){
+                        $mostrar=2;//
+                        
+                    }else{
+                        if($inscritosnow < $limit ){
+                            $mostrar=2;//
+
+                        }else{
+                            $mostrar=1;
+                            $num=1;
+                        }
+                    }
                 }
                 else
                 {
@@ -110,7 +128,7 @@ class SiteController extends Controller
             {
                 return $this->redirect(["creditolista"]);
             }
-            return $this->render("vermas", ["model" => $credito,'contar'=>$num,'sino'=>$apro]);
+            return $this->render("vermas", ["model" => $credito,'contar'=>$num,'sino'=>$apro,'limit'=>$mostrar]);
 
         
     }

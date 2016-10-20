@@ -43,6 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php endif ?>
+
+        <?php if ($limit == 1): ?>
+          <div class="description help-block" > No hay Cupo solo se permite <?=$model->limite?> alumnos </div>
+        
        	<?php endif ?>
 
     <?php if ($sino == 1): ?>
