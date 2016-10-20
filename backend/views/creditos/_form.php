@@ -24,7 +24,7 @@ use backend\models\Administrativo;
     <?php if ($model->imagen): ?>
     <div class="row imagen">
      <?php $r = str_replace("/web", "", Yii::$app->request->baseUrl) ?>;
-     <?= Html::img( $r.'/imagens/'. $model->imagen, ['class' => 'img-thumbnail', 'width' => 250]) ?>
+     <?= Html::img( $r.'/imagens/'.' '. $model->imagen, ['class' => 'img-thumbnail', 'width' => 250]) ?>
     </div>
     <?php endif; ?>
     <?php endif; ?>
@@ -66,7 +66,7 @@ use backend\models\Administrativo;
      <!--?= $form->field($model, 'imagen')->textInput(['maxlength' => true]) ?-->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -40,7 +40,8 @@ class Creditos extends \yii\db\ActiveRecord
             [['idcredito', 'actividad', 'credito', 'periodo', 'comentario', 'responsable', 'obligatorio', 'limite', 'imagen'], 'required'],
             [['idcredito', 'credito', 'responsable', 'limite'], 'integer'],
             [['comentario', 'obligatorio'], 'string'],
-            [['actividad', 'imagen'], 'string', 'max' => 45],
+            [['actividad'], 'string', 'max' => 45],
+            [['imagen'],'image', 'extensions' => 'png, jpg, gif, jpeg'],
             [['periodo'], 'string', 'max' => 10],
             [['responsable'], 'exist', 'skipOnError' => true, 'targetClass' => Administrativo::className(), 'targetAttribute' => ['responsable' => 'iddepartamento']],
         ];

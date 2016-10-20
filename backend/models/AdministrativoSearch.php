@@ -20,6 +20,7 @@ class AdministrativoSearch extends Administrativo
         return [
             [['iddepartamento', 'usuario'], 'integer'],
             [['departamento', 'encargado', 'telefono'], 'safe'],
+            [['user.username'], 'safe'],
         ];
     }
 
@@ -42,6 +43,8 @@ class AdministrativoSearch extends Administrativo
     public function search($params)
     {
         $query = Administrativo::find();
+         $query->leftJoin(['user'
+        ], 'user.id = administrativo.usuario');
 
         // add conditions that should always apply here
 
@@ -61,8 +64,9 @@ class AdministrativoSearch extends Administrativo
         $query->andFilterWhere([
             'iddepartamento' => $this->iddepartamento,
             'usuario' => $this->usuario,
-        ]);
 
+        ]);
+        $query->andFilterWhere(['like', 'user.username', $this->getAttribute('user.username')]);
         $query->andFilterWhere(['like', 'departamento', $this->departamento])
             ->andFilterWhere(['like', 'encargado', $this->encargado])
             ->andFilterWhere(['like', 'telefono', $this->telefono]);

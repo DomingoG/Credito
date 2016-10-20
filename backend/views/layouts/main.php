@@ -35,8 +35,9 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-       // ['label' => 'Home', 'url' => ['/site/index']],
-        //['label' => 'Alumno', 'url' => ['/site/creditolista']],
+        ['label' => 'Alumno', 'url' => ['/site/creditolista']],
+        ['label' => 'departamento', 'url' => ['/administrativo/index']],
+        ['label' => 'Creditos', 'url' => ['/creditos/index']],
         ['label' => 'SuperAdmin',
         'items' => [
             ['label' => 'ISC', 'url' => ['alumcreditos/isc', 'tag' => 'new']],

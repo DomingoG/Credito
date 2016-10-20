@@ -28,7 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'departamento',
             'encargado',
             'telefono',
-            'usuario',
+            [
+            'attribute' => 'user.username',
+            'label' => 'Usuario',
+            'format' => 'raw',
+            'content'=>function($data){##data accesso a toda fila
+           return $data->getUsername();
+            },
+            ],
+            //'usuario0.username',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

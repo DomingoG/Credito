@@ -8,6 +8,9 @@ use backend\models\CreditosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadFile;
+use yii\web\UploadedFile;
+use yii\data\SqlDataProvider;
 
 /**
  * CreditosController implements the CRUD actions for Creditos model.
@@ -63,10 +66,22 @@ class CreditosController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Creditos();
+        $imagen="";
+        $model= new Creditos;
+        if ($model->load(Yii::$app->request->post())) {
+            $rnd = rand(0,9999);
+              $imagen = UploadedFile::getInstance($model, 'imagen');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idcredito]);
+              if($imagen->extension == "jpg" || $imagen->extension == "png" ||
+                        $imagen->extension == "jpeg" || $imagen->extencion == "gif")
+                    {
+                        $fileName = "{$rnd}-{$imagen}";
+                        $model->imagen = $fileName;
+                        $imagen->saveAs(Yii::$app->basePath.'\imagens\ '.$fileName);
+                        $model->save();                                        
+                    }
+                    return $this->redirect(['view', 'id' => $model->idcredito]);
+            
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,9 +97,27 @@ class CreditosController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+         $model = $this->findModel($id);
+        
+        if ($model->load(Yii::$app->request->post()) ) {
+            $rnd = rand(0,9999);           
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $imagen = UploadedFile::getInstance($model, 'imagen');
+            
+            if (!is_null($imagen)) {
+              $fileName = "{$rnd}-{$imagen}";
+              $model->imagen = $fileName;
+              //$imagen->saveAs(Yii::$app->basePath.'\imagens\ ' .reset($imagen));
+              
+                    if ($model->save(false)) 
+                    {
+                        $imagen->saveAs(Yii::$app->basePath.'\imagens\ ' .$fileName);
+                    }
+                }else{
+                     $image = Creditos::findOne(['idcredito' => $id]);
+                     $model->imagen = $image["imagen"];
+                }
+                $model->save();
             return $this->redirect(['view', 'id' => $model->idcredito]);
         } else {
             return $this->render('update', [

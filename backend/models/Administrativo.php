@@ -88,4 +88,13 @@ class Administrativo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Creditos::className(), ['responsable' => 'iddepartamento']);
     }
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['user.username']);
+    }
+     public function getUsername()
+    {
+        $model=$this->usuario0;
+        return $model?$model->username:'';
+    }
 }
