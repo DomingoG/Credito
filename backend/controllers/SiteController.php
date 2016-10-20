@@ -127,6 +127,9 @@ class SiteController extends Controller
                         $table->alumno =$alumno->Matricula;
                         $table->aprobado = "NO";
                         $table->fecha=date('Y-m-d');
+                        $table->fechaaprobacion=date('Y-m-d');
+                        
+
                         $table->save();
 
         return $this->redirect(["creditolista"]);         

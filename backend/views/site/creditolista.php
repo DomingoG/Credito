@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
      <?php foreach($listasi as $row): ?>
        <tr> 
             <td> <?php $r = str_replace("/web", "", Yii::$app->request->baseUrl) ?>
-     <?= Html::img( $r.'/imagens/'. $row->imagen, ['class' => 'img-thumbnail', 'width' => 250]) ?>
+     <?= Html::img( $r.'/imagens/'.' '. $row->imagen, ['class' => 'img-thumbnail', 'width' => 250]) ?>
             </td>
             <td><?= $row->actividad ?><br>
             <?= $row->comentario ?></td>
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
      <?php foreach($listano as $row): ?>
        <tr>
             <td> <?php $r = str_replace("/web", "", Yii::$app->request->baseUrl) ?>
-     		<?= Html::img( $r.'/imagens/'. $row->imagen, ['class' => 'img-thumbnail', 'width' => 400 ]) ?>  </td>
+     		<?= Html::img( $r.'/imagens/'.' '. $row->imagen, ['class' => 'img-thumbnail', 'width' => 400 ]) ?>  </td>
             <td><?= $row->actividad ?><br>
             <?= $row->comentario ?></td>
             <td><a class='btn btn-info'  href="<?= Url::toRoute(['site/vermas','idcredito' => $row->idcredito])?>">Leer Mas</a></td>
