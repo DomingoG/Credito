@@ -50,6 +50,7 @@ class AdministrativoController extends Controller
 
     public function actionIndex()
     {
+         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $searchModel = new AdministrativoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -57,6 +58,10 @@ class AdministrativoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
 
     /**
@@ -66,9 +71,13 @@ class AdministrativoController extends Controller
      */
     public function actionView($id)
     {
+         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+         }else{
+            return $this->redirect(['site/permiso']); 
+       }
     }
 
     /**
@@ -78,6 +87,7 @@ class AdministrativoController extends Controller
      */
     public function actionCreate()
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $model = new Administrativo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -87,6 +97,9 @@ class AdministrativoController extends Controller
                 'model' => $model,
             ]);
         }
+        }else{
+            return $this->redirect(['site/permiso']); 
+       }
     }
 
     /**
@@ -97,6 +110,7 @@ class AdministrativoController extends Controller
      */
     public function actionUpdate($id)
     {
+         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -106,6 +120,9 @@ class AdministrativoController extends Controller
                 'model' => $model,
             ]);
         }
+        }else{
+            return $this->redirect(['site/permiso']); 
+       }
     }
 
     /**
@@ -116,9 +133,13 @@ class AdministrativoController extends Controller
      */
     public function actionDelete($id)
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        }else{
+            return $this->redirect(['site/permiso']); 
+       }
     }
 
     /**
