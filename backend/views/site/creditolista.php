@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </td>
             <td><?= $row->actividad ?><br>
             <?= $row->comentario ?></td>
-            <td><a  class='btn btn-info' data-toggle="tooltip" title="Mas Infor.." href="<?= Url::toRoute(['site/vermas','idcredito' => $row->idcredito])?>">Leer Mas</a></td>
+            <td><a  class='btn btn-info' data-toggle="tooltip" title="Mas Infor.." href="<?= Url::toRoute(['site/vermas','idcredito' => $row->idcredito])?>">Leer Mas &raquo;</a></td>
 
        </tr> 
        <?php endforeach ?>
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
      		<?= Html::img( $r.'/imagens/'.' '. $row->imagen, ['class' => 'img-thumbnail', 'width' => 400 ]) ?>  </td>
             <td><?= $row->actividad ?><br>
             <?= $row->comentario ?></td>
-            <td><a class='btn btn-info'  href="<?= Url::toRoute(['site/vermas','idcredito' => $row->idcredito])?>">Leer Mas</a></td>
+            <td><a class='btn btn-info'  href="<?= Url::toRoute(['site/vermas','idcredito' => $row->idcredito])?>">Leer Mas &raquo;</a></td>
 
        </tr>
        <?php endforeach ?>

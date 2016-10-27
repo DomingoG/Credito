@@ -26,8 +26,10 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+<?php $r = str_replace("/web", "", Yii::$app->request->baseUrl) ?>
     <?php
     NavBar::begin([
+        //'brandLabel' =>'<img src="'.$r.'/imagens/tecno/tec.jpg"; class="img-responsive">'.'hola',
         'brandLabel' => 'ITSVA',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
