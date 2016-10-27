@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadFile;
 use yii\web\UploadedFile;
 use yii\data\SqlDataProvider;
+use yii\helpers\ArrayHelper;
 
 /**
  * CreditosController implements the CRUD actions for Creditos model.
@@ -116,8 +117,17 @@ class CreditosController extends Controller
 
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
          $model = $this->findModel($id);
+
+         $model->operaciones = \yii\helpers\ArrayHelper::getColumn(
+        $model->getCreditosHasSemestres()->asArray()->all(),
+        'semestre_idsemestre'
+    );
         
         if ($model->load(Yii::$app->request->post()) ) {
+            if (!isset($_POST['Creditos']['operaciones'])) {
+            $model->operaciones = [];
+            }
+
             $rnd = rand(0,9999);           
 
             $imagen = UploadedFile::getInstance($model, 'imagen');

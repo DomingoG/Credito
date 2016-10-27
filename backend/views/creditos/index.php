@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'idcredito',
             'actividad',
             'credito',
-            'periodo',
+            //'periodo',
             'comentario:ntext',
             // 'responsable',
             // 'obligatorio',

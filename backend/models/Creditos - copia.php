@@ -1,8 +1,6 @@
 <?php
 
 namespace backend\models;
-use backend\models\Semestre;
-use backend\models\CreditosHasSemestre;
 
 use Yii;
 
@@ -12,6 +10,7 @@ use Yii;
  * @property integer $idcredito
  * @property string $actividad
  * @property integer $credito
+ * @property string $periodo
  * @property string $comentario
  * @property integer $responsable
  * @property string $obligatorio
@@ -29,7 +28,6 @@ class Creditos extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public $operaciones;
     public static function tableName()
     {
         return 'creditos';
@@ -41,13 +39,12 @@ class Creditos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idcredito', 'actividad', 'credito', 'comentario', 'responsable', 'obligatorio', 'limite', 'imagen','operaciones'], 'required'],
+            [['idcredito', 'actividad', 'credito', 'periodo', 'comentario', 'responsable', 'obligatorio', 'limite', 'imagen'], 'required'],
             [['idcredito', 'credito', 'responsable', 'limite'], 'integer'],
             [['comentario', 'obligatorio'], 'string'],
-            [['operaciones'], 'safe'],
             [['actividad', 'imagen'], 'string', 'max' => 45],
+            [['periodo'], 'string', 'max' => 10],
             [['responsable'], 'exist', 'skipOnError' => true, 'targetClass' => Administrativo::className(), 'targetAttribute' => ['responsable' => 'iddepartamento']],
-            
         ];
     }
 
@@ -60,11 +57,11 @@ class Creditos extends \yii\db\ActiveRecord
             'idcredito' => 'Idcredito',
             'actividad' => 'Actividad',
             'credito' => 'Credito',
+            'periodo' => 'Periodo',
             'comentario' => 'Comentario',
             'responsable' => 'Responsable',
             'obligatorio' => 'Obligatorio',
             'limite' => 'Limite',
-            'operaciones'=>'Semestre Permitidos',
             'imagen' => 'Imagen',
         ];
     }
@@ -107,22 +104,5 @@ class Creditos extends \yii\db\ActiveRecord
     public function getSemestreIdsemestres()
     {
         return $this->hasMany(Semestre::className(), ['idsemestre' => 'semestre_idsemestre'])->viaTable('creditos_has_semestre', ['creditos_idcredito' => 'idcredito']);
-    }
-
-
-    public function afterSave($insert, $changedAttributes){
-    \Yii::$app->db->createCommand()->delete('creditos_has_semestre', 'creditos_idcredito = '.(int) $this->idcredito)->execute();
- 
-    foreach ($this->operaciones as $id) {
-        $ro = new CreditosHasSemestre();
-        $ro->creditos_idcredito = $this->idcredito;
-        $ro->semestre_idsemestre = $id;
-        $ro->save();
-    }
-    }
-
-    public function getList()
-    {
-        return $this->getSemestreIdsemestres()->asArray();
     }
 }

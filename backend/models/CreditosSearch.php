@@ -19,7 +19,7 @@ class CreditosSearch extends Creditos
     {
         return [
             [['idcredito', 'credito', 'responsable', 'limite'], 'integer'],
-            [['actividad', 'periodo', 'comentario', 'obligatorio', 'imagen'], 'safe'],
+            [['actividad', 'comentario', 'obligatorio', 'imagen'], 'safe'],
         ];
     }
 
@@ -66,7 +66,7 @@ class CreditosSearch extends Creditos
         ]);
 
         $query->andFilterWhere(['like', 'actividad', $this->actividad])
-            ->andFilterWhere(['like', 'periodo', $this->periodo])
+            //->andFilterWhere(['like', 'periodo', $this->periodo])
             ->andFilterWhere(['like', 'comentario', $this->comentario])
             ->andFilterWhere(['like', 'obligatorio', $this->obligatorio])
             ->andFilterWhere(['like', 'imagen', $this->imagen]);

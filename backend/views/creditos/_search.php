@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'credito') ?>
 
-    <?= $form->field($model, 'periodo') ?>
+    <!--?= $form->field($model, 'periodo') ?-->
 
     <?= $form->field($model, 'comentario') ?>
 

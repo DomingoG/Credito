@@ -24,20 +24,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+   
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'idcredito',
             'actividad',
             'credito',
-            'periodo',
+           // 'periodo',
             'comentario:ntext',
             'responsable0.departamento',
             'obligatorio',
             'limite',
-            'imagen',
+           // 'imagen',
         ],
     ]) ?>
+     <p class="list-group-item active"><b>Semestres Permitidos</b></a>
+    
+    <?php 
+
+     foreach ($model->list as $operacionPermitida) {?>
+        <ul class="list-group">
+            <li class="list-group-item"><?php echo $operacionPermitida['semestre']?></li>
+    <?php
+            
+        }
+    ?>
 
 </div>

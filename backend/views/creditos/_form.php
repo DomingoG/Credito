@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use backend\models\Administrativo;
+use backend\models\Semestre;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Creditos */
@@ -35,21 +36,12 @@ use backend\models\Administrativo;
 
     <?= $form->field($model, 'credito')->textInput(['type' => 'number','min'=>1,'max'=>10]) ?>
 
-    <?= $form->field($model, 'periodo')->textInput(['maxlength' => true]) ?>
-    
-    <!--?= Html::Checkboxlist('Periodo','periodo',[
-        'Primer Semestre'=>'Primer Semestre',
-        'Segundo Semestre'=>'Segundo Semestre',
-        'Tercer Semestre'=>'Tercer Semestre',
-        'Cuarto Semestre'=>'Cuarto Semestre',
-        'Quinto Semestre'=>'Quinto Semestre',
-        'Sexto Semestre'=>'Sexto Semestre',
-        'Septimo Semestre'=>'Septimo Semestre',
-        'Octavo Semestre'=>'Octavo Semestre',
-        'Noveno Semestre'=>'Noveno Semestre',
+     <?php 
+    $modelSemestre=Semestre::find()->asArray()->all();
+    $mapeocombo=ArrayHelper::map($modelSemestre,"idsemestre","semestre");
+    echo $form->field($model, 'operaciones')->checkboxList($mapeocombo, ['unselect'=>NULL]);
+    ?>
 
-
-    ])?-->
     <?= $form->field($model, 'comentario')->textarea(['rows' => 6]) ?>
 
     <!--?= $form->field($model, 'responsable')->textInput() ?-->
