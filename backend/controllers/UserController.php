@@ -64,7 +64,7 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-          if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <30){
+          if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
 
           $model = new SignupForm();
         

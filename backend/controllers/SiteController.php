@@ -30,7 +30,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','creditolista','vermas','registro'],
+                        'actions' => ['logout', 'index','creditolista','vermas','registro','permiso'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -65,6 +65,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionPermiso()
+    {
+        return $this->render('permiso');
     }
 
      public function actionCreditolista(){

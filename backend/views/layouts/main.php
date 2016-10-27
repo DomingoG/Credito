@@ -9,9 +9,13 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use common\models\ValueHelpers;
+use backend\assets\FontAwesomeAsset;
 
 AppAsset::register($this);
+//FontAwesomeAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -26,21 +30,58 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-<?php $r = str_replace("/web", "", Yii::$app->request->baseUrl) ?>
-    <?php
+    
+    <?php 
+    $is_admin = ValueHelpers::getRoleValue('Admin');
+    
+    $is_alumno = ValueHelpers::getRoleValue('Alumno');
+    $is_superadmin = ValueHelpers::getRoleValue('SuperAdmin');
+            if (!Yii::$app->user->isGuest){
     NavBar::begin([
-        //'brandLabel' =>'<img src="'.$r.'/imagens/tecno/tec.jpg"; class="img-responsive">'.'hola',
-        'brandLabel' => 'ITSVA',
+        'brandLabel' => 'tec <i class="fa fa-plug"></i> Admin',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    } else {
+                NavBar::begin([
+                    'brandLabel' => 'Yii 2 Build <i class="fa fa-plug"></i>',
+                    'brandUrl' => Yii::$app->homeUrl,
+                    'options' => [
+                                'class' => 'navbar-inverse navbar-fixed-top',
+                                ],
+                    ]);
+            }
     $menuItems = [
-        ['label' => 'Alumno', 'url' => ['/site/creditolista']],
-        ['label' => 'departamento', 'url' => ['/administrativo/index']],
-        ['label' => 'Creditos', 'url' => ['/creditos/index']],
-        ['label' => 'SuperAdmin',
+       // ['label' => 'Home', 'url' => ['/site/index']],
+    ];
+     if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_alumno) 
+      {
+            $menuItems[] = ['label' => 'Profiles', 'url' => ['profile/index']];
+            $menuItems[] = ['label' => 'Statuses', 'url' => ['/status/index']];
+      }elseif(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_admin) 
+      {
+        $menuItems[] = ['label' => 'Home', 'url' => ['administrativo/index']];
+        $menuItems[] = ['label' => 'Profiles', 'url' => ['profile/index']];
+        $menuItems[] = ['label' => 'Avisos', 'url' => ['avisos/index']];
+        $menuItems[] = ['label' => 'Creditos', 'url' => ['#'],
+          'items' => [
+            ['label' => 'Inscritos', 'url' => ['alumcreditos/inscritosalumno', 'tag' => 'new']],
+            ['label' => 'Aprobar', 'url' => ['alumcreditos/activaralumno', 'tag' => 'new']],
+            ['label' => 'Bajas', 'url' => ['alumcreditos/bajaalumno', 'tag' => 'popular']],
+            ],
+            
+        ];
+            
+      } elseif (!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_superadmin) {
+           
+           $menuItems[] = ['label' => 'Home', 'url' => ['user/index']];
+           $menuItems[] = ['label' => 'Perfile', 'url' => ['user/index']];
+           $menuItems[] = ['label' => 'Usuarios', 'url' => ['user/index']];
+           $menuItems[] = ['label' => 'Creditos', 'url' => ['/creditos/index']];
+           $menuItems[] = ['label' => 'Departamento', 'url' => ['/administrativo/index']];
+           $menuItems[] = ['label' => 'SuperAdmin',
         'items' => [
             ['label' => 'ISC', 'url' => ['alumcreditos/isc', 'tag' => 'new']],
             ['label' => 'I.Civil', 'url' => ['alumcreditos/civil', 'tag' => 'new']],
@@ -48,30 +89,18 @@ AppAsset::register($this);
             ['label' => 'I.Industrial', 'url' => ['alumcreditos/industrial', 'tag' => 'new']],
             ['label' => 'I.Ambiental', 'url' => ['alumcreditos/ambiental', 'tag' => 'new']],
             ],
-          ],
-
-        ['label' => 'Administrativo', 'url' => ['#'],
-        'items' => [
-            ['label' => 'Inscritos', 'url' => ['alumcreditos/inscritosalumno', 'tag' => 'new']],
-            ['label' => 'Aprobar', 'url' => ['alumcreditos/activaralumno', 'tag' => 'new']],
-            ['label' => 'Bajas', 'url' => ['alumcreditos/bajaalumno', 'tag' => 'popular']],
-            ['label' => 'Avisos', 'url' => ['avisos/index', 'tag' => 'popular']],
-            ],
+          ];
+      }
+      if (Yii::$app->user->isGuest) {
+            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+      } else {
+            $menuItems[] = ['label' =>
+            'Logout (' . Yii::$app->user->identity->username .')' ,
+            'url' => ['/site/logout'],
+            'linkOptions' => ['data-method' => 'post']
+            ];
             
-        ],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
+      }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,

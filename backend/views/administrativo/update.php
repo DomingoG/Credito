@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Administrativo */
 
-$this->title = 'Update Administrativo: ' . $model->iddepartamento;
+$this->title = 'Actualizar Departamento: ' . $model->departamento;
 $this->params['breadcrumbs'][] = ['label' => 'Administrativos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->iddepartamento, 'url' => ['view', 'id' => $model->iddepartamento]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Modificar';
 ?>
 <div class="administrativo-update">
 
