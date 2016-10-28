@@ -11,23 +11,45 @@ use backend\models\Semestre;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
 <div class="creditos-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
 
-     <?php if ($model->isNewRecord == True): ?>
-    <?= $form->field($model,'imagen')->fileInput() ?>
-     <div class="description help-block" > Las imágenes deben medir exactamente 250x250 píxeles. </div>
+    <?php if ($model->isNewRecord == True): ?>  
+    <?= $form->field($model,'imagen')->fileInput() ?>       
+    <div class="description help-block" > Las imágenes deben medir exactamente 250x250 píxeles</div>
     <?php endif ?>
 
     <?php if ($model->isNewRecord == False): ?>
-    <?php if ($model->imagen): ?>
-    <div class="row imagen">
+    
+
+        <div id="content" style="display: none;">
+        <?= $form->field($model,'imagen')->fileInput() ?>       
+        </div>
      <?php $r = str_replace("/web", "", Yii::$app->request->baseUrl) ?>;
      <?= Html::img( $r.'/imagens/'.' '. $model->imagen, ['class' => 'img-thumbnail', 'width' => 250]) ?>
-    </div>
-    <?php endif; ?>
+     <br>
+     <div style="color:#999;margin:1em 0">
+        <input type="checkbox" name="check" id="check" value="1" onchange="javascript:showContent()" />
+         Cambiar Imagen
+     </div>
+                   
+    <script type="text/javascript">
+    function showContent() {
+        element = document.getElementById("content");
+        check = document.getElementById("check");
+        if (check.checked) {
+            element.style.display='block';
+        }
+        else {
+            element.style.display='none';
+        }
+    }
+    </script>
+    
+    
     <?php endif; ?>
 
     <?= $form->field($model, 'idcredito')->textInput() ?>
