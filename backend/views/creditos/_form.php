@@ -25,12 +25,10 @@ use backend\models\Semestre;
     <?php if ($model->isNewRecord == False): ?>
     
 
-        <div id="content" style="display: none;">
-        <?= $form->field($model,'imagen')->fileInput() ?>       
-        </div>
-     <?php $r = str_replace("/web", "", Yii::$app->request->baseUrl) ?>;
-     <?= Html::img( $r.'/imagens/'.' '. $model->imagen, ['class' => 'img-thumbnail', 'width' => 250]) ?>
-     <br>
+            
+         <?php $r = str_replace("/web", "", Yii::$app->request->baseUrl) ?>;
+        <?= Html::img( $r.'/imagens/'.' '. $model->imagen, ['class' => 'img-thumbnail', 'width' => 250]) ?>
+        <br>
      <div style="color:#999;margin:1em 0">
         <input type="checkbox" name="check" id="check" value="1" onchange="javascript:showContent()" />
          Cambiar Imagen
@@ -48,6 +46,9 @@ use backend\models\Semestre;
         }
     }
     </script>
+     <div id="content" style="display: none;">
+            <?= $form->field($model,'imagen')->fileInput() ?>       
+            </div>
     
     
     <?php endif; ?>

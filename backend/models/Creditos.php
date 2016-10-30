@@ -41,11 +41,15 @@ class Creditos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idcredito', 'actividad', 'credito', 'comentario', 'responsable', 'obligatorio', 'limite', 'imagen','operaciones'], 'required'],
+            [['idcredito', 'actividad', 'credito', 'comentario', 'responsable', 'obligatorio', 'limite','operaciones'], 'required'],
             [['idcredito', 'credito', 'responsable', 'limite'], 'integer'],
             [['comentario', 'obligatorio'], 'string'],
             [['operaciones'], 'safe'],
-            [['actividad', 'imagen'], 'string', 'max' => 45],
+            [['actividad'], 'string', 'max' => 45],
+            [['imagen'], 'safe'],
+            [['imagen'],'image', 'extensions' => 'png, jpg, gif,jpeg',//'types'=>'jpg, jpeg, png, gif',
+                'minWidth' => 250, 'maxWidth' => 250,
+                'minHeight' => 250, 'maxHeight' => 250],
             [['responsable'], 'exist', 'skipOnError' => true, 'targetClass' => Administrativo::className(), 'targetAttribute' => ['responsable' => 'iddepartamento']],
             
         ];
