@@ -48,7 +48,7 @@ use backend\models\Semestre;
     </script>
      <div id="content" style="display: none;">
             <?= $form->field($model,'imagen')->fileInput() ?>       
-            </div>
+    </div>
     
     
     <?php endif; ?>

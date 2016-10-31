@@ -64,6 +64,7 @@ AppAsset::register($this);
       {
         $menuItems[] = ['label' => 'Home', 'url' => ['administrativo/index']];
         $menuItems[] = ['label' => 'Profiles', 'url' => ['profile/index']];
+        $menuItems[] = ['label' => 'Reporte', 'url' => ['alumcreditos/aprobados']];
         $menuItems[] = ['label' => 'Avisos', 'url' => ['avisos/index']];
         $menuItems[] = ['label' => 'Creditos', 'url' => ['#'],
           'items' => [
