@@ -9,8 +9,10 @@ use common\models\LoginForm;
 use backend\models\Creditos;
 use yii\helpers\Html;
 use backend\models\Alumcreditos;
+use backend\models\AlumcreditosSearch;
 use backend\models\Administrativo;
 use backend\models\Alumno;
+use kartik\mpdf\Pdf;
 
 /**
  * Site controller
@@ -31,7 +33,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','creditolista','vermas','registro','permiso','reportealumno'],
+                        'actions' => ['logout', 'index','creditolista','vermas','registro','permiso','reportealumno','report'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -195,14 +197,93 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    public function actionReportealumno(){
+    protected $modelalumno;
+    protected $matriculaalumno;
 
-        
+    public function actionReport(){
+
+        $aprobadosi="Si";
+        $aprobadono="No";
         $searchModel = new AlumcreditosSearch();
         $idalumno=Yii::$app->user->identity->id;
+        $alumno= Alumno::find()->where(['usuario' => $idalumno])->one();
         $Matricula= Alumno::find('Matricula')->where(['usuario' => $idalumno])->one();
-        $dataProvider = $searchModel->searchalumno(Yii::$app->request->queryParams,$Matricula);
-        return $this->render('reportealumno',['model'=>$dataProvider]);
+        
+        $modelsi = $searchModel->searchalumno(Yii::$app->request->queryParams,$Matricula,$aprobadosi);
+        $modelno = $searchModel->searchalumno(Yii::$app->request->queryParams,$Matricula,$aprobadono);
+
+        $session = Yii::$app->session;
+                // check if a session is already open
+                if (!$session->isActive){
+                    $session->open();// open a session
+                } 
+                // save query here
+                $session['modelalumno'] = Yii::$app->request->queryParams;
+                $session['matriculaalumno'] = $Matricula;
+
+
+
+         $this->modelalumno = Yii::$app->request->queryParams; 
+         $this->matriculaalumno = $Matricula;
+
+
+        return $this->render('report',[
+            'modelsi'=>$modelsi,
+            'modelno'=>$modelno,
+            'alumno'=>$alumno
+            ]);
+
     }
+
+
+
+     public function actionReportealumno() {
+            
+             $aprobadosi="Si";
+             $aprobadono="No";
+
+            $searchModel = new AlumcreditosSearch();
+            $idalumno=Yii::$app->user->identity->id;
+            $alumno= Alumno::find()->where(['usuario' => $idalumno])->one();
+
+            $modelsi= $searchModel->searchalumno(Yii::$app->request->queryParams,Yii::$app->session->get('matriculaalumno'),$aprobadosi);
+            $modelno = $searchModel->searchalumno(Yii::$app->request->queryParams,Yii::$app->session->get('matriculaalumno'),$aprobadono);
+
+            $content = $this->renderPartial('reportealumno', [
+            'alumno'=>$alumno,
+            'modelsi' => $modelsi,
+            'modelno' => $modelno,
+            ]);
+            
+            // setup kartik\mpdf\Pdf component
+            $pdf = new Pdf([
+                // set to use core fonts only
+                'mode' => Pdf::MODE_CORE, 
+                // A4 paper format
+                'format' => Pdf::FORMAT_A4, 
+                // portrait orientation
+                'orientation' => Pdf::ORIENT_PORTRAIT, 
+                // stream to browser inline
+                'destination' => Pdf::DEST_BROWSER, 
+                // your html content input
+                'content' => $content,  
+                // format content from your own css file if needed or use the
+                // enhanced bootstrap css built by Krajee for mPDF formatting 
+                'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                // any css to be embedded if required
+                'cssInline' => '.kv-heading-1{font-size:18px}', 
+                 // set mPDF properties on the fly
+                'options' => ['title' => 'Reporte'],
+                 // call mPDF methods on the fly
+                'methods' => [ 
+                    'SetHeader'=>['Sistema de Gestion de Creditos Complementarios'], 
+                    'SetFooter'=>['{PAGENO}'],
+                ]
+            ]);
+            
+            // return the pdf output as per the destination setting
+            return $pdf->render(); 
+    }
+
 
 }

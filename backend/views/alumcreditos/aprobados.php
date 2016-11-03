@@ -20,7 +20,7 @@ echo Html::button('Volver', [
 ?>
 
 <h1>Lista de alumnos Aprobados Creditos</h1>
-<?= Html::a('Exportar a PDF', ['report'],['class' => 'btn btn-warning']) ?>
+<?= Html::a('Exportar a PDF', ['report'],['target'=>'_blank','class' => 'btn btn-warning']) ?>
 
 <div class="administrativo-index">
 <?= GridView::widget([

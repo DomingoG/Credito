@@ -11,7 +11,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <h3>Reporte de Creditos del alumno:<?php echo $alumno->nombre.' '.$alumno->apellidopaterno; ?></h3>
-
+<p>
+	<?= Html::a('Exportar a PDF', ['reportealumno'],['target'=>'_blank','class' => 'btn btn-warning']) ?>
+</p>
 <p>Creditos Aprobados</p>
 <div class="administrativo-index">
 <?= GridView::widget([
@@ -115,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             
             
-            'fecha',
+            'fechaaprobacion',
 
              'aprobado',
              

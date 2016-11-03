@@ -152,11 +152,11 @@ class AlumcreditosSearch extends Alumcreditos
         return $dataProvider;
     }
 
-    public function searchalumno($params,$matricula)
+    public function searchalumno($params,$matricula,$aprobado)
     {
         
         $query = Alumcreditos::find()->where([
-            'aprobado'=>'Si',
+            'aprobado'=>$aprobado,
             'alumno'=>$matricula
 
              ]);

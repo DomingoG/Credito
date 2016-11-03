@@ -95,7 +95,7 @@ class Alumcreditos extends \yii\db\ActiveRecord
     }
      public function attributes()
     {
-        return array_merge(parent::attributes(), ['alumno.nombre','alumno.apellidopaterno','creditos.actividad']);
+        return array_merge(parent::attributes(), ['alumno.nombre','alumno.apellidopaterno','creditos.actividad','administrativo.departamento','administrativo.encargado']);
     }
 
      public function getNombre()
@@ -107,6 +107,16 @@ class Alumcreditos extends \yii\db\ActiveRecord
     {
         $model=$this->alumno0;
         return $model?$model->apellidopaterno:'';
+    }
+     public function getDepartamento()
+    {
+        $model=$this->departamento0;
+        return $model?$model->departamento:'';
+    }
+    public function getEncargado()
+    {
+        $model=$this->departamento0;
+        return $model?$model->encargado:'';
     }
 
    /*   public function getCarre0()
