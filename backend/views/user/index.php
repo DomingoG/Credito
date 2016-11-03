@@ -54,14 +54,14 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             ],
 
-            [
+           /* [
             'attribute' => 'user_type.user_type_name',
             'label' => 'Tipo de usuario',
             'format' => 'raw',
             'content'=>function($data){##data accesso a toda fila
            return $data->getTypename();
             },
-            ],
+            ],*/
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

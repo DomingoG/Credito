@@ -44,7 +44,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = User::find()->where(['role_id'=>[10,20]]);
         $query->leftJoin(['role'
         ], 'role.role_value = user.role_id');
 

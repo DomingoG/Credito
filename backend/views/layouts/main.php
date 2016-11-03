@@ -63,8 +63,8 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Creditos', 'url' => ['/site/creditolista']];
       }elseif(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_admin) 
       {
-        $menuItems[] = ['label' => 'Home', 'url' => ['administrativo/index']];
-        $menuItems[] = ['label' => 'Profiles', 'url' => ['profile/index']];
+        $menuItems[] = ['label' => 'Home', 'url' => ['/administrativo/homreadmin']];
+        $menuItems[] = ['label' => 'Profiles', 'url' => ['administrativo/perfile']];
         $menuItems[] = ['label' => 'Reporte', 'url' => ['alumcreditos/aprobados']];
         $menuItems[] = ['label' => 'Avisos', 'url' => ['avisos/index']];
         $menuItems[] = ['label' => 'Creditos', 'url' => ['#'],
@@ -78,12 +78,12 @@ AppAsset::register($this);
             
       } elseif (!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_superadmin) {
            
-           $menuItems[] = ['label' => 'Home', 'url' => ['user/index']];
-           $menuItems[] = ['label' => 'Perfile', 'url' => ['user/index']];
+           $menuItems[] = ['label' => 'Home', 'url' => ['user/homeuser']];
+           $menuItems[] = ['label' => 'Perfile', 'url' => ['user/perfile']];
            $menuItems[] = ['label' => 'Usuarios', 'url' => ['user/index']];
            $menuItems[] = ['label' => 'Creditos', 'url' => ['/creditos/index']];
            $menuItems[] = ['label' => 'Departamento', 'url' => ['/administrativo/index']];
-           $menuItems[] = ['label' => 'SuperAdmin',
+           $menuItems[] = ['label' => 'Carreras',
         'items' => [
             ['label' => 'ISC', 'url' => ['alumcreditos/isc', 'tag' => 'new']],
             ['label' => 'I.Civil', 'url' => ['alumcreditos/civil', 'tag' => 'new']],

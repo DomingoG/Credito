@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use common\models\RecordHelpers;
 use backend\models\Administrativo;
 use backend\models\AdministrativoSearch;
 use backend\models\AlumcreditosSearch;
@@ -71,10 +72,18 @@ class AdministrativoController extends Controller
      */
     public function actionView($id)
     {
-         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
-        return $this->render('view', [
+         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20){
+            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 20){
+                return $this->render('viewadmin', [
             'model' => $this->findModel($id),
-        ]);
+            ]);
+            }else{
+                return $this->render('view', [
+            'model' => $this->findModel($id),       
+            ]); 
+            }
+        
+        
          }else{
             return $this->redirect(['site/permiso']); 
        }
@@ -110,7 +119,7 @@ class AdministrativoController extends Controller
      */
     public function actionUpdate($id)
     {
-         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
+         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20){
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -158,4 +167,15 @@ class AdministrativoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+     public function actionPerfile(){
+        if ($already_exists = RecordHelpers::userHas('administrativo')) {
+                return $this->render('viewadmin', [
+                'model' => $this->findModel($already_exists),
+                ]);
+            } else {
+            return $this->redirect(['create']);
+            }
+    }
+
 }

@@ -19,7 +19,7 @@ class RecordHelpers {
 public static function userHas($model_name){
     $connection = \Yii::$app->db;
     $userid = Yii::$app->user->identity->id;
-    $sql = "SELECT id FROM $model_name WHERE user_id=:userid";
+    $sql = "SELECT iddepartamento FROM $model_name WHERE usuario=:userid";
     $command = $connection->createCommand($sql);
     $command->bindValue(":userid", $userid);
     $result = $command->queryOne();
@@ -28,7 +28,7 @@ public static function userHas($model_name){
             return false;
         } else 
             {
-                return $result['id'];
+                return $result['iddepartamento'];
             }
 }
 

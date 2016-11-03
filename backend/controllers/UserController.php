@@ -6,6 +6,7 @@ use Yii;
 use backend\models\UserSearch;
 use backend\models\SignupForm;
 use common\models\User;
+use common\models\RecordHelpers;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,6 +39,7 @@ class UserController extends Controller
     {
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $searchModel = new UserSearch();
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -155,4 +157,14 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    public function actionPerfile(){
+        if ($already_exists = RecordHelpers::userHas('administrativo')) {
+                return $this->render('view', [
+                'model' => $this->findModel($already_exists),
+                ]);
+            } else {
+            return $this->redirect(['create']);
+            }
+    }
+
 }
