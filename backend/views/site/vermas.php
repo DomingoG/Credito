@@ -17,20 +17,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		
 		<h1><?= Html::encode($model->actividad) ?></h1>
-		<p><label>Total de creditos a optener</label>:</p>
-  		<?= Html::encode($model->credito) ?>
+     <p class="list-group-item active"><b>Total de creditos a obtener</b></a>
+		</p>
+  		<li class="list-group-item"><?= Html::encode($model->credito) ?></li>
 		<br/><br />
-		<p><label>Periodo a realizar</label>:</p>
-  		<?= Html::encode($model->periodo)." semestre" ?>
+		<p class="list-group-item active"><b>Periodos para realizarlo</b></a>
+  		<?php 
+
+     foreach ($model->list as $operacionPermitida) {?>
+        <ul class="list-group">
+            <li class="list-group-item"><?php echo $operacionPermitida['semestre']?></li>
+    <?php
+            
+        }
+    ?>
 		<br/><br />
-		<p><label>Informacion</label>:</p>
-  		<?= Html::encode($model->comentario) ?>
+		<p class="list-group-item active"><b>Informacion</b></a>
+      <li class="list-group-item"><?= Html::encode($model->comentario) ?></li>
+  		
+    </p>
 		<br/><br />
-		<p><label>Responsable de asignacion</label>:</p>
-  		<?= Html::encode($model->responsable) ?>
+		<p class="list-group-item active"><b>Encargado</b></a>
+      <li class="list-group-item"><?= Html::encode($modeldepa->encargado) ?></li>
+  		<li class="list-group-item"><?= Html::encode($modeldepa->departamento) ?></li>
+
+      </p>
 		<br /><br />
-		<p><label>Estado</label>:</p>
-  		<?= Html::encode($model->obligatorio)." Es obligatorio" ?>
+		<p class="list-group-item active"><b>Estado</b></a>
+  		<li class="list-group-item"><?= Html::encode($model->obligatorio)." Es obligatorio" ?></li>
+      </p>
 		<br /><br />
 		
 
@@ -59,3 +74,6 @@ $this->params['breadcrumbs'][] = $this->title;
     
     
     <?php endif; ?>
+
+
+    

@@ -151,4 +151,58 @@ class AlumcreditosSearch extends Alumcreditos
 
         return $dataProvider;
     }
+
+    public function searchalumno($params,$matricula)
+    {
+        
+        $query = Alumcreditos::find()->where([
+            'aprobado'=>'Si',
+            'alumno'=>$matricula
+
+             ]);
+        //$query->leftJoin(['alumno'
+        //], 'alumno.Matricula = alumno_creditos.alumno');
+        //$query->leftJoin([
+        //'creditos'
+        ///], 'creditos.idcredito=alumno_creditos.credito');
+       /* $query->leftJoin([
+        'carrera'
+        ], 'carrera.idcarrera=alumno.carrera');*/
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'idreporte' => $this->idreporte,
+            'credito' => $this->credito,
+            'departamento' => $this->departamento,
+            'alumno' => $this->alumno,
+            //'alumno.Matricula' => $this->alumno,
+            'fecha' => $this->fecha,
+            //'fechaaprobacion' => $this->fecha,
+
+        ]);
+
+        $query->andFilterWhere(['like', 'aprobado', $this->aprobado]);
+    /*    $query->andFilterWhere(['like', 'alumno.nombre', $this->getAttribute('alumno.nombre')]);
+        $query->andFilterWhere(['like', 'alumno.apellidopaterno', $this->getAttribute('alumno.apellidopaterno')]);
+        $query->andFilterWhere(['like', 'creditos.actividad', $this->getAttribute('creditos.actividad')]);*/
+       // $query->andFilterWhere(['like', 'carrera.carrera', $this->getAttribute('carrera.carrera')]);
+
+        return $dataProvider;
+    }
+
+
 }

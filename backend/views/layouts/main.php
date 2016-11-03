@@ -59,7 +59,8 @@ AppAsset::register($this);
      if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_alumno) 
       {
             $menuItems[] = ['label' => 'Profiles', 'url' => ['profile/index']];
-            $menuItems[] = ['label' => 'Statuses', 'url' => ['/status/index']];
+            $menuItems[] = ['label' => 'Reporte', 'url' => ['/site/reportealumno']];
+            $menuItems[] = ['label' => 'Creditos', 'url' => ['/site/creditolista']];
       }elseif(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_admin) 
       {
         $menuItems[] = ['label' => 'Home', 'url' => ['administrativo/index']];

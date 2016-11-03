@@ -9,6 +9,7 @@ use common\models\LoginForm;
 use backend\models\Creditos;
 use yii\helpers\Html;
 use backend\models\Alumcreditos;
+use backend\models\Administrativo;
 use backend\models\Alumno;
 
 /**
@@ -30,7 +31,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','creditolista','vermas','registro','permiso'],
+                        'actions' => ['logout', 'index','creditolista','vermas','registro','permiso','reportealumno'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -94,7 +95,8 @@ class SiteController extends Controller
                     //
                     $iduser=Yii::$app->user->identity->id;
                     $al = Alumno::find()->where(['usuario' => $iduser])->one();   
-                    
+                    $respon = Creditos::find(['responsable'])->where(['idcredito'=> $idcredito])->one();
+                    $modelrespo=Administrativo::find()->where(['iddepartamento'=>$respon])->one();           
                     $num=Alumcreditos::find()->where([
                         'credito'=>$credito->idcredito,
                         'alumno'=> $al->Matricula,
@@ -133,7 +135,7 @@ class SiteController extends Controller
             {
                 return $this->redirect(["creditolista"]);
             }
-            return $this->render("vermas", ["model" => $credito,'contar'=>$num,'sino'=>$apro,'limit'=>$mostrar]);
+            return $this->render("vermas", ["model" => $credito,'contar'=>$num,'sino'=>$apro,'limit'=>$mostrar,'modeldepa'=>$modelrespo]);
 
         
     }
@@ -192,4 +194,15 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+    public function actionReportealumno(){
+
+        
+        $searchModel = new AlumcreditosSearch();
+        $idalumno=Yii::$app->user->identity->id;
+        $Matricula= Alumno::find('Matricula')->where(['usuario' => $idalumno])->one();
+        $dataProvider = $searchModel->searchalumno(Yii::$app->request->queryParams,$Matricula);
+        return $this->render('reportealumno',['model'=>$dataProvider]);
+    }
+
 }
