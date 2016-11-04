@@ -49,7 +49,7 @@ class Administrativo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'iddepartamento' => 'Iddepartamento',
+            'iddepartamento' => 'Id Departamento',
             'departamento' => 'Departamento',
             'encargado' => 'Encargado',
             'telefono' => 'Telefono',

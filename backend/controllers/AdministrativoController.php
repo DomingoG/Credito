@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use common\models\user;
 use common\models\RecordHelpers;
 use backend\models\Administrativo;
 use backend\models\AdministrativoSearch;
@@ -127,6 +128,33 @@ class AdministrativoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+            ]);
+        }
+        }else{
+            return $this->redirect(['site/permiso']); 
+       }
+    }
+
+    /**
+     * Updates an existing Administrativo model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdateadministrativo($id)
+    {
+         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20){
+            $model = $this->findModel($id);
+            $user=User::find()->where(['id'=>$model->usuario])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
+            $user->save();
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->iddepartamento]);
+        } else {
+            return $this->render('updateadministrativo', [
+                'model' => $model,
+                'modeluser'=>$user,
             ]);
         }
         }else{

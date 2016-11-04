@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Actualizar', ['update', 'id' => $model->iddepartamento], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Actualizar', ['updateadministrativo', 'id' => $model->iddepartamento], ['class' => 'btn btn-primary']) ?>
         
     </p>
 
@@ -26,6 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'encargado',
             'telefono',
             'usuario0.username',
+            [
+                'attribute' => 'usuario0.email',
+                'label' => 'Nombre de Usuario',
+            ],
+            
         ],
     ]) ?>
 
