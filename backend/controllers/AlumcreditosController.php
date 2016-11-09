@@ -59,6 +59,7 @@ class AlumcreditosController extends Controller
         ]);
     }
     public function actionIsc(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=1;
            $searchModel = new AlumcreditosSearch();
            
@@ -68,8 +69,13 @@ class AlumcreditosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
     public function actionCivil(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=2;
            $searchModel = new AlumcreditosSearch();
            
@@ -79,8 +85,13 @@ class AlumcreditosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
     public function actionAdmon(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=3;
            $searchModel = new AlumcreditosSearch();
            
@@ -90,9 +101,14 @@ class AlumcreditosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+            }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
      
     public function actionAmbiental(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=4;
            $searchModel = new AlumcreditosSearch();
            
@@ -102,8 +118,13 @@ class AlumcreditosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
     public function actionIndustrial(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=5;
            $searchModel = new AlumcreditosSearch();
            
@@ -113,6 +134,10 @@ class AlumcreditosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
 
 
