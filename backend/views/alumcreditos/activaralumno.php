@@ -19,7 +19,7 @@ echo Html::button('Volver', [
                 );*/
 ?>
 
-<h1>Lista de alumnos Aprobados Creditos</h1>
+<h1>Aprobar Credito</h1>
 
 
 <div class="administrativo-index">

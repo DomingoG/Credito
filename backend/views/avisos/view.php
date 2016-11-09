@@ -16,13 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Editar', ['update', 'id' => $model->idavisos], ['class' => 'btn btn-primary']) ?>
-        <!--?= Html::a('Eliminar', ['delete', 'id' => $model->idavisos], [
+        <?= Html::a('Eliminar', ['delete', 'id' => $model->idavisos], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?-->
+        ]) ?>
     </p>
 
     <?= DetailView::widget([

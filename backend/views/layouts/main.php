@@ -38,16 +38,16 @@ AppAsset::register($this);
     $is_superadmin = ValueHelpers::getRoleValue('SuperAdmin');
             if (!Yii::$app->user->isGuest){
     NavBar::begin([
-        'brandLabel' => 'tec <i class="fa fa-plug"></i> Admin',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' => 'ITSVA',
+        //'brandUrl' =>Yii::$app->,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     } else {
                 NavBar::begin([
-                    'brandLabel' => 'Yii 2 Build <i class="fa fa-plug"></i>',
-                    'brandUrl' => Yii::$app->homeUrl,
+                    'brandLabel' => 'ITSVA <i class="fa fa-plug"></i>',
+                    //'brandUrl' => Yii::$app->homeUrl,
                     'options' => [
                                 'class' => 'navbar-inverse navbar-fixed-top',
                                 ],
@@ -79,7 +79,7 @@ AppAsset::register($this);
       } elseif (!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_superadmin) {
            
            $menuItems[] = ['label' => 'Home', 'url' => ['user/homeuser']];
-           $menuItems[] = ['label' => 'Perfile', 'url' => ['user/perfile']];
+           //$menuItems[] = ['label' => 'Perfil', 'url' => ['administrativo/perfile']];
            $menuItems[] = ['label' => 'Usuarios', 'url' => ['user/index']];
            $menuItems[] = ['label' => 'Creditos', 'url' => ['/creditos/index']];
            $menuItems[] = ['label' => 'Departamento', 'url' => ['/administrativo/index']];
@@ -121,9 +121,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Instituto Tecnológico Superior de Valladolid <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right"><!--?= Yii::powered() ?--></p>
     </div>
 </footer>
 

@@ -8,18 +8,10 @@ use yii\grid\GridView;
 $this->title = 'Aprobados';
 //$this->params['breadcrumbs'][] = ['label' => '', 'url' => ['creditolista']];
 $this->params['breadcrumbs'][] = $this->title;
-/* 
-boton volver
-echo Html::button('Volver', [
-            'name' => 'btnBack',
-            'class'=>'btn btn-info',
-            'style' => 'width:150px;',
-            'onclick' => "history.go(-1)",
-                ]
-                );*/
+
 ?>
 
-<h1>Lista de alumnos Aprobados Creditos</h1>
+<h1>Eliminar Alumno del Credito</h1>
 
 
 <div class="administrativo-index">

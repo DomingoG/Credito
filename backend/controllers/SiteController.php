@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use Yii;
+use common\models\User;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -171,13 +172,27 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            //$iduser=Yii::$app->user->identity->id;
+            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
+                return $this->redirect(["user/homeuser"]);
+            }elseif(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >=20 ){
+                return $this->redirect(["administrativo/homeadmin"]);
+            }elseif(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <=10 ){
+                return $this->redirect(["site/index"]);
+            }
+             //$admin=User::find()->where(['usuario'=>$iduser])->count();
+             //$alumno=Alumno::find()->where(['usuario'=>$iduser])->count();
+
+
+
+            //return $this->goBack();
         } else {
             return $this->render('login', [
                 'model' => $model,

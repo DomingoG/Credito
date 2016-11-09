@@ -163,7 +163,7 @@ class UserController extends Controller
                 'model' => $this->findModel($already_exists),
                 ]);
             } else {
-            return $this->redirect(['create']);
+            return $this->redirect(['administrativo/create']);
             }
     }
 
