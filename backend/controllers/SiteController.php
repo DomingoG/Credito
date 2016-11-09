@@ -34,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','creditolista','vermas','registro','permiso','reportealumno','report'],
+                        'actions' => ['logout', 'index','creditolista','vermas','registro','permiso','reportealumno','report','perfil'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -250,9 +250,7 @@ class SiteController extends Controller
 
     }
 
-
-
-     public function actionReportealumno() {
+       public function actionReportealumno() {
             
              $aprobadosi="Si";
              $aprobadono="No";

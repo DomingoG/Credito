@@ -12,14 +12,15 @@ use Yii;
  * @property string $nombre
  * @property string $apellidopaterno
  * @property string $apellidomaterno
- * @property string $semestre
  * @property string $telefono
  * @property integer $ciudad
  * @property integer $carrera
  * @property integer $usuario
+ * @property integer $semestre
  *
  * @property Ciudad $ciudad0
  * @property Carrera $carrera0
+ * @property Semestre $semestre0
  * @property User $usuario0
  * @property AlumnoCreditos[] $alumnoCreditos
  */
@@ -39,13 +40,13 @@ class Alumno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Matricula', 'nombre', 'apellidopaterno', 'apellidomaterno', 'semestre', 'telefono', 'ciudad', 'carrera', 'usuario'], 'required'],
-            [['Matricula', 'ciudad', 'carrera', 'usuario'], 'integer'],
+            [['Matricula', 'nombre', 'apellidopaterno', 'apellidomaterno', 'telefono', 'ciudad', 'carrera', 'usuario', 'semestre'], 'required'],
+            [['Matricula', 'ciudad', 'carrera', 'usuario', 'semestre'], 'integer'],
             [['nombre', 'apellidopaterno', 'apellidomaterno'], 'string', 'max' => 45],
-            [['semestre'], 'string', 'max' => 11],
             [['telefono'], 'string', 'max' => 10],
             [['ciudad'], 'exist', 'skipOnError' => true, 'targetClass' => Ciudad::className(), 'targetAttribute' => ['ciudad' => 'idciudad']],
             [['carrera'], 'exist', 'skipOnError' => true, 'targetClass' => Carrera::className(), 'targetAttribute' => ['carrera' => 'idcarrera']],
+            [['semestre'], 'exist', 'skipOnError' => true, 'targetClass' => Semestre::className(), 'targetAttribute' => ['semestre' => 'idsemestre']],
             [['usuario'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['usuario' => 'id']],
         ];
     }
@@ -60,11 +61,11 @@ class Alumno extends \yii\db\ActiveRecord
             'nombre' => 'Nombre',
             'apellidopaterno' => 'Apellidopaterno',
             'apellidomaterno' => 'Apellidomaterno',
-            'semestre' => 'Semestre',
             'telefono' => 'Telefono',
             'ciudad' => 'Ciudad',
             'carrera' => 'Carrera',
             'usuario' => 'Usuario',
+            'semestre' => 'Semestre',
         ];
     }
 
@@ -87,6 +88,14 @@ class Alumno extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getSemestre0()
+    {
+        return $this->hasOne(Semestre::className(), ['idsemestre' => 'semestre']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUsuario0()
     {
         return $this->hasOne(User::className(), ['id' => 'usuario']);
@@ -99,6 +108,4 @@ class Alumno extends \yii\db\ActiveRecord
     {
         return $this->hasMany(AlumnoCreditos::className(), ['alumno' => 'Matricula']);
     }
-
-    
 }

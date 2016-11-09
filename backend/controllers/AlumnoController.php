@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use common\models\User;
 use backend\models\Alumno;
 use backend\models\AlumnoSearch;
 use yii\web\Controller;
@@ -52,7 +53,7 @@ class AlumnoController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->render('perfil', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -92,7 +93,7 @@ class AlumnoController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
             $model->usuario=Yii::$app->user->identity->id;
             $model->save();
-            return $this->redirect(['view', 'id' => $model->Matricula]);
+            return $this->redirect(['perfil', 'id' => $model->Matricula]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -109,12 +110,17 @@ class AlumnoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $id=Yii::$app->user->identity->id;
+        $modeluser=User::find()->where(['id'=>$id])->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Matricula]);
+        if ($model->load(Yii::$app->request->post()) && $modeluser->load(Yii::$app->request->post())) {
+            $modeluser->save();
+            $model->save();
+            return $this->redirect(['perfil', 'id' => $model->Matricula]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'modeluser'=>$modeluser,
             ]);
         }
     }
@@ -146,5 +152,14 @@ class AlumnoController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+       public function actionPerfil()
+    {
+       $id=Yii::$app->user->identity->id;
+       $modelalu=Alumno::find()->where(['usuario'=>$id])->one();
+
+        return $this->render('perfil',['model'=>$modelalu]);//mostrar infromacion de BD
+
     }
 }

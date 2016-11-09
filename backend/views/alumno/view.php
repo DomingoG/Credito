@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Alumno */
 
 $this->title = $model->Matricula;
-$this->params['breadcrumbs'][] = ['label' => 'Alumnos', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => 'Alumnos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="alumno-view">

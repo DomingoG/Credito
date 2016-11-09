@@ -46,7 +46,7 @@ AppAsset::register($this);
     ]);
     } else {
                 NavBar::begin([
-                    'brandLabel' => 'ITSVA <i class="fa fa-plug"></i>',
+                    'brandLabel' => 'ITSVA',
                     //'brandUrl' => Yii::$app->homeUrl,
                     'options' => [
                                 'class' => 'navbar-inverse navbar-fixed-top',
@@ -58,7 +58,7 @@ AppAsset::register($this);
     ];
      if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_alumno) 
       {
-            $menuItems[] = ['label' => 'Profiles', 'url' => ['profile/index']];
+            $menuItems[] = ['label' => 'Perfil', 'url' => ['alumno/perfil']];
             $menuItems[] = ['label' => 'Reporte', 'url' => ['/site/report']];
             $menuItems[] = ['label' => 'Creditos', 'url' => ['/site/creditolista']];
       }elseif(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= $is_admin) 
@@ -112,7 +112,7 @@ AppAsset::register($this);
 
     <div class="container">
         <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'links' => isset($this->params['breadcrumbs'])? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>

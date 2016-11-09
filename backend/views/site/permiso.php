@@ -11,6 +11,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="alert alert-danger">
     <p>No tiene permiso para acceder a esta página.</p>
     </div>
+    <?= Html::button('Volver', [
+            'name' => 'btnBack',
+            'class'=>'btn btn-danger',
+            'style' => 'width:150px;',
+            'onclick' => "history.go(-1)",
+                ]
+                );
+    ?>
     
 </div>
 
