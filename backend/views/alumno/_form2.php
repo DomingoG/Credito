@@ -44,9 +44,9 @@ use yii\helpers\ArrayHelper;
     echo $form->field($model, 'carrera')->dropDownList($mapeocombo,['prompt' => 'Seleccione una opcion' ]); 
     ?>
 
-    <!--?= $form->field($modeluser, 'username')->textInput() ?-->
+    <?= $form->field($modeluser, 'username')->textInput() ?>
 
-    <!--?= $form->field($modeluser, 'email') ?-->
+    <?= $form->field($modeluser, 'email') ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Guardar' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

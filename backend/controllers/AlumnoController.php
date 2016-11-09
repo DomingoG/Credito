@@ -93,15 +93,15 @@ class AlumnoController extends Controller
 
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
          $model = new Alumno();
-         $user= new User;
-        if ($model->load(Yii::$app->request->post()) && $model->load(Yii::$app->request->post())) {
-            $user->save();
+         //$user= new User;
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->usuario=Yii::$app->user->identity->id;
             $model->save();
             return $this->redirect(['perfil', 'id' => $model->Matricula]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'modeluser'=>$user,
+                
             ]);
         }
         }else{
@@ -126,7 +126,7 @@ class AlumnoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $modeluser->load(Yii::$app->request->post())) {
             $modeluser->save();
             $model->save();
-            return $this->redirect(['perfil', 'id' => $model->Matricula]);
+            return $this->redirect(['perfil']);//, 'id' => $model->Matricula]);
         } else {
             return $this->render('update', [
                 'model' => $model,
