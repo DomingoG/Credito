@@ -157,7 +157,7 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    public function actionPerfile(){
+   /* public function actionPerfile(){
         if ($already_exists = RecordHelpers::userHas('administrativo')) {
                 return $this->render('view', [
                 'model' => $this->findModel($already_exists),
@@ -165,6 +165,6 @@ class UserController extends Controller
             } else {
             return $this->redirect(['administrativo/create']);
             }
-    }
+    }*/
 
 }

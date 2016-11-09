@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\Alumno */
 
 $this->title = 'Create Alumno';
-$this->params['breadcrumbs'][] = ['label' => 'Alumnos', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => 'Alumnos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="alumno-create">
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modeluser'=>$modeluser,
     ]) ?>
 
 </div>

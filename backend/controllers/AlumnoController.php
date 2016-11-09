@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\User;
+use common\models\RecordHelpers;
 use backend\models\Alumno;
 use backend\models\AlumnoSearch;
 use yii\web\Controller;
@@ -57,7 +58,8 @@ class AlumnoController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-     public function actionViewconsulta($id)
+    
+    /* public function actionViewconsulta($id)
     {
        $query=Alumno::find()->where(['Matricula'=>$id])->one();
       // $query->leftJoin([
@@ -70,7 +72,7 @@ class AlumnoController extends Controller
 
        return $this->render('viewconsulta', ['model'=>$query]);
        
-    }
+    }*/
 
     /**
      * Creates a new Alumno model.
@@ -88,17 +90,24 @@ class AlumnoController extends Controller
                 'model' => $model,
             ]);
         }*/
-         $model = new Alumno();
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->usuario=Yii::$app->user->identity->id;
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
+         $model = new Alumno();
+         $user= new User;
+        if ($model->load(Yii::$app->request->post()) && $model->load(Yii::$app->request->post())) {
+            $user->save();
             $model->save();
             return $this->redirect(['perfil', 'id' => $model->Matricula]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'modeluser'=>$user,
             ]);
         }
+        }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+            } 
     }
 
     /**
@@ -109,6 +118,7 @@ class AlumnoController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
         $model = $this->findModel($id);
         $id=Yii::$app->user->identity->id;
         $modeluser=User::find()->where(['id'=>$id])->one();
@@ -123,6 +133,10 @@ class AlumnoController extends Controller
                 'modeluser'=>$modeluser,
             ]);
         }
+        }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+            } 
     }
 
     /**
@@ -133,9 +147,14 @@ class AlumnoController extends Controller
      */
     public function actionDelete($id)
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+            } 
     }
 
     /**
@@ -156,10 +175,25 @@ class AlumnoController extends Controller
 
        public function actionPerfil()
     {
-       $id=Yii::$app->user->identity->id;
-       $modelalu=Alumno::find()->where(['usuario'=>$id])->one();
+       if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
 
-        return $this->render('perfil',['model'=>$modelalu]);//mostrar infromacion de BD
+       //$id=Yii::$app->user->identity->id;
+       ///$modelalu=Alumno::find()->where(['usuario'=>$id])->one();
+
+        ///return $this->render('perfil',['model'=>$modelalu]);//mostrar infromacion de BD
+
+        if ($already_exists = RecordHelpers::alumnoHas('alumno')) {
+                return $this->render('perfil', [
+                'model' => $this->findModel($already_exists),
+                ]);
+            } else {
+            return $this->redirect(['alumno/create']);
+            }
+
+         }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+            } 
 
     }
 }

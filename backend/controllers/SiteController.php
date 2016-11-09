@@ -3,6 +3,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\User;
+use common\models\RecordHelpers;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -77,6 +78,7 @@ class SiteController extends Controller
     }
 
      public function actionCreditolista(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
 
        $table = new Creditos;
        $modelsi = $table->find()->where(['obligatorio'=>'Si'])->all();
@@ -85,10 +87,16 @@ class SiteController extends Controller
        $modelno = $table1->find()->where(['obligatorio'=>'No'])->all();
 
         return $this->render('creditolista',['listasi'=>$modelsi,'listano'=>$modelno]);
+        }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+       }
     }
 
     public function actionVermas(){
-
+        
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
+            if ($already_exists = RecordHelpers::alumnoHas('alumno')) {
         if (Yii::$app->request->get("idcredito"))
             {
                 $idcredito = Html::encode($_GET["idcredito"]);
@@ -139,11 +147,20 @@ class SiteController extends Controller
                 return $this->redirect(["creditolista"]);
             }
             return $this->render("vermas", ["model" => $credito,'contar'=>$num,'sino'=>$apro,'limit'=>$mostrar,'modeldepa'=>$modelrespo]);
+             
+            } else {
+            return $this->redirect(['alumno/create']);
+            }
+             }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+            }
 
         
     }
     public function actionRegistro($id){
          
+         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
                         $table= new Alumcreditos;
                         $credito = Creditos::findOne($id);
                         $idalumno=Yii::$app->user->identity->id;
@@ -160,7 +177,11 @@ class SiteController extends Controller
 
                         $table->save();
 
-        return $this->redirect(["creditolista"]);         
+        return $this->redirect(["creditolista"]);  
+        }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+            }       
 
     }
 
@@ -216,8 +237,11 @@ class SiteController extends Controller
     protected $matriculaalumno;
 
     public function actionReport(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
 
-        $aprobadosi="Si";
+            if ($already_exists = RecordHelpers::alumnoHas('alumno')) {
+                
+                 $aprobadosi="Si";
         $aprobadono="No";
         $searchModel = new AlumcreditosSearch();
         $idalumno=Yii::$app->user->identity->id;
@@ -247,10 +271,21 @@ class SiteController extends Controller
             'modelno'=>$modelno,
             'alumno'=>$alumno
             ]);
+       
 
+            } else {
+            return $this->redirect(['alumno/create']);
+            }
+
+         }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+            }    
     }
 
        public function actionReportealumno() {
+
+            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
             
              $aprobadosi="Si";
              $aprobadono="No";
@@ -296,6 +331,10 @@ class SiteController extends Controller
             
             // return the pdf output as per the destination setting
             return $pdf->render(); 
+             }else{
+            return $this->redirect(['site/permiso']);
+            //return $this->render('site/nopermitido');
+            }    
     }
 
 
