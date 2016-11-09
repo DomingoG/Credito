@@ -150,7 +150,7 @@ class AdministrativoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post())) {
             $user->save();
             $model->save();
-            return $this->redirect(['view', 'id' => $model->iddepartamento]);
+            return $this->redirect(['perfile', 'id' => $model->iddepartamento]);
         } else {
             return $this->render('updateadministrativo', [
                 'model' => $model,
@@ -197,6 +197,7 @@ class AdministrativoController extends Controller
     }
 
      public function actionPerfile(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20){
         if ($already_exists = RecordHelpers::userHas('administrativo')) {
                 return $this->render('viewadmin', [
                 'model' => $this->findModel($already_exists),
@@ -204,6 +205,9 @@ class AdministrativoController extends Controller
             } else {
             return $this->redirect(['create']);
             }
+        }else{
+            return $this->redirect(['site/permiso']); 
+       }       
     }
 
 }

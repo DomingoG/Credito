@@ -158,6 +158,7 @@ class AlumcreditosController extends Controller
     }
 
      public function actionInscritosalumno(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
             $apro='No';
             $id=Yii::$app->user->identity->id;
             $al = Administrativo::find()->where(['usuario' => $id])->one();   
@@ -171,9 +172,13 @@ class AlumcreditosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        }else{
+         return $this->redirect(['site/permiso']);
+        }
     }
 
     public function actionActivaralumno(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
             $apro='No';
             $id=Yii::$app->user->identity->id;
             $al = Administrativo::find()->where(['usuario' => $id])->one();   
@@ -186,11 +191,15 @@ class AlumcreditosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+         }else{
+         return $this->redirect(['site/permiso']);
+        }
     }
     protected $repqueryaprobados;
     protected $repquerydepa;
 
     public function actionAprobados(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
         $apro='Si';
             $id=Yii::$app->user->identity->id;
             $al = Administrativo::find()->where(['usuario' => $id])->one();   
@@ -219,9 +228,15 @@ class AlumcreditosController extends Controller
             'dataProvider' => $dataProvider,
         ]);
 
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
+
     }
 
     public function actionReport() {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
             $apro='Si';
             // get your HTML raw content without any layouts or scripts
             $searchModel = new AlumcreditosSearch();
@@ -260,9 +275,14 @@ class AlumcreditosController extends Controller
             
             // return the pdf output as per the destination setting
             return $pdf->render(); 
+            }else{
+            return $this->redirect(['site/permiso']);
+           }
+
     }
 
     public function actionBajaalumno(){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
             $apro='No';
             $id=Yii::$app->user->identity->id;
             $al = Administrativo::find()->where(['usuario' => $id])->one();   
@@ -276,8 +296,12 @@ class AlumcreditosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+            }else{
+            return $this->redirect(['site/permiso']);
+           }
     }
     public function actionElimi($id){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
        
             if (Yii::$app->request->get("id"))
             {
@@ -295,9 +319,14 @@ class AlumcreditosController extends Controller
             {
                 return $this->redirect(["bajaalumno"]);
             }
+                }else{
+            return $this->redirect(['site/permiso']);
+           }
+          
     }
 
     public function actionEditar($id){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
        
              if (Yii::$app->request->get("id"))
             {
@@ -320,6 +349,9 @@ class AlumcreditosController extends Controller
              //   return $this->redirect(["reportealumnos"]);
             }
             return $this->redirect("activaralumno");
+            }else{
+            return $this->redirect(['site/permiso']);
+           }
 
      }
 

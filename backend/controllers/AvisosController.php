@@ -38,6 +38,7 @@ class AvisosController extends Controller
      */
     public function actionIndex()
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
        /* $searchModel = new AvisosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -67,6 +68,10 @@ class AvisosController extends Controller
         ],
     ]);
         return $this->render('index',['provider'=>$provider]);
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
 
     }
 
@@ -77,9 +82,14 @@ class AvisosController extends Controller
      */
     public function actionView($id)
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
 
     /**
@@ -89,6 +99,7 @@ class AvisosController extends Controller
      */
     public function actionCreate()
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
         $model = new Avisos();
         $id=Yii::$app->user->identity->id;
              $al = Administrativo::find()->where(['usuario' => $id])->one();   
@@ -109,6 +120,10 @@ class AvisosController extends Controller
                 'modelcarrera'=>$modelcarrera,
             ]);
         }
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
 
     /**
@@ -119,6 +134,8 @@ class AvisosController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
+
         $model = $this->findModel($id);
         $id=Yii::$app->user->identity->id;
              $al = Administrativo::find()->where(['usuario' => $id])->one();   
@@ -132,6 +149,10 @@ class AvisosController extends Controller
                 'model' => $model,'modelcarrera'=>$modelcarrera,
             ]);
         }
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
 
     /**
@@ -142,9 +163,14 @@ class AvisosController extends Controller
      */
     public function actionDelete($id)
     {
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+         }else{
+            return $this->redirect(['site/permiso']);
+            
+       }
     }
 
     /**
