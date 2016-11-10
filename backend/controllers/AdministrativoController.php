@@ -52,6 +52,7 @@ class AdministrativoController extends Controller
 
     public function actionIndex()
     {
+        \Yii::$app->language = 'es';
          if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $searchModel = new AdministrativoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -96,7 +97,8 @@ class AdministrativoController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {
+        {
+            \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $model = new Administrativo();
 
@@ -120,6 +122,7 @@ class AdministrativoController extends Controller
      */
     public function actionUpdate($id)
     {
+        \Yii::$app->language = 'es';
          if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20){
         $model = $this->findModel($id);
 
@@ -143,6 +146,7 @@ class AdministrativoController extends Controller
      */
     public function actionUpdateadministrativo($id)
     {
+        \Yii::$app->language = 'es';
          if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20){
             $model = $this->findModel($id);
             $user=User::find()->where(['id'=>$model->usuario])->one();
@@ -197,6 +201,7 @@ class AdministrativoController extends Controller
     }
 
      public function actionPerfile(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20){
         if ($already_exists = RecordHelpers::userHas('administrativo')) {
                 return $this->render('viewadmin', [

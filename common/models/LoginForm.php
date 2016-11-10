@@ -30,6 +30,20 @@ class LoginForm extends Model
             ['password', 'validatePassword'],
         ];
     }
+    public function attributeLabels()
+    {
+        return [
+        /* Your other attribute labels */
+
+            'username'=>'Nombre de Usuario',
+            'password'=>'Password',
+            'created_at'=>'Fecha de Creacion',
+            'updated_at'=>'Fecha de Modificado',
+            'status_id' => 'Estado',
+            'role_id'=> 'Tipo de Rol',
+          
+        ];
+    }
 
     /**
      * Validates the password.

@@ -38,6 +38,7 @@ class AvisosController extends Controller
      */
     public function actionIndex()
     {
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
        /* $searchModel = new AvisosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -99,6 +100,7 @@ class AvisosController extends Controller
      */
     public function actionCreate()
     {
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
         $model = new Avisos();
         $id=Yii::$app->user->identity->id;
@@ -134,6 +136,7 @@ class AvisosController extends Controller
      */
     public function actionUpdate($id)
     {
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
 
         $model = $this->findModel($id);

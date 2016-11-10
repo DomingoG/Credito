@@ -36,7 +36,7 @@ class AlumnoController extends Controller
      * Lists all Alumno models.
      * @return mixed
      */
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $searchModel = new AlumnoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -45,7 +45,7 @@ class AlumnoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-    }
+    }*/
 
     /**
      * Displays a single Alumno model.
@@ -90,7 +90,7 @@ class AlumnoController extends Controller
                 'model' => $model,
             ]);
         }*/
-
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
          $model = new Alumno();
          //$user= new User;
@@ -118,6 +118,7 @@ class AlumnoController extends Controller
      */
     public function actionUpdate($id)
     {
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
         $model = $this->findModel($id);
         $id=Yii::$app->user->identity->id;

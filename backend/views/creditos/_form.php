@@ -77,7 +77,7 @@ use backend\models\Semestre;
     <?= $form->field($model, 'obligatorio')->dropDownList([ 'SI' => 'SI', 'NO' => 'NO', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'limite')->textInput() ?>
-
+    <div class="description help-block" >Ingrese '0' si no cuenta con un limite de alumnos</div>
      <!--?= $form->field($model, 'imagen')->textInput(['maxlength' => true]) ?-->
 
     <div class="form-group">

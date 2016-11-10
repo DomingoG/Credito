@@ -39,6 +39,7 @@ class CreditosController extends Controller
      */
     public function actionIndex()
     {
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $searchModel = new CreditosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -77,6 +78,7 @@ class CreditosController extends Controller
      */
     public function actionCreate()
     {
+        \Yii::$app->language = 'es';
          if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $imagen="";
         $model= new Creditos;
@@ -115,6 +117,7 @@ class CreditosController extends Controller
     public function actionUpdate($id)
     {
 
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
          $model = $this->findModel($id);
 

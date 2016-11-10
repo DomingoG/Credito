@@ -74,10 +74,12 @@ class SiteController extends Controller
 
     public function actionPermiso()
     {
+        \Yii::$app->language = 'es';
         return $this->render('permiso');
     }
 
      public function actionCreditolista(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
 
        $table = new Creditos;
@@ -94,6 +96,7 @@ class SiteController extends Controller
     }
 
     public function actionVermas(){
+        \Yii::$app->language = 'es';
         
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
             if ($already_exists = RecordHelpers::alumnoHas('alumno')) {
@@ -193,7 +196,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-
+        \Yii::$app->language = 'es';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -228,6 +231,7 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+        \Yii::$app->language = 'es';
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -237,6 +241,7 @@ class SiteController extends Controller
     protected $matriculaalumno;
 
     public function actionReport(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
 
             if ($already_exists = RecordHelpers::alumnoHas('alumno')) {
@@ -284,6 +289,7 @@ class SiteController extends Controller
     }
 
        public function actionReportealumno() {
+        \Yii::$app->language = 'es';
 
             if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id <= 10){
             

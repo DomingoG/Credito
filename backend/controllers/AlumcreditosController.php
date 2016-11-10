@@ -59,6 +59,7 @@ class AlumcreditosController extends Controller
         ]);
     }
     public function actionIsc(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=1;
            $searchModel = new AlumcreditosSearch();
@@ -75,6 +76,7 @@ class AlumcreditosController extends Controller
        }
     }
     public function actionCivil(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=2;
            $searchModel = new AlumcreditosSearch();
@@ -91,6 +93,7 @@ class AlumcreditosController extends Controller
        }
     }
     public function actionAdmon(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=3;
            $searchModel = new AlumcreditosSearch();
@@ -108,6 +111,7 @@ class AlumcreditosController extends Controller
     }
      
     public function actionAmbiental(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=4;
            $searchModel = new AlumcreditosSearch();
@@ -124,6 +128,7 @@ class AlumcreditosController extends Controller
        }
     }
     public function actionIndustrial(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
            $carrera=5;
            $searchModel = new AlumcreditosSearch();
@@ -142,6 +147,7 @@ class AlumcreditosController extends Controller
 
 
      public function actionListaaprobados(){
+        \Yii::$app->language = 'es';
             $apro='si';
             $id=Yii::$app->user->identity->id;
            /* $al = Administrativo::find()->where(['usuario' => $id])->one();   
@@ -158,6 +164,7 @@ class AlumcreditosController extends Controller
     }
 
      public function actionInscritosalumno(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
             $apro='No';
             $id=Yii::$app->user->identity->id;
@@ -178,6 +185,7 @@ class AlumcreditosController extends Controller
     }
 
     public function actionActivaralumno(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
             $apro='No';
             $id=Yii::$app->user->identity->id;
@@ -199,6 +207,7 @@ class AlumcreditosController extends Controller
     protected $repquerydepa;
 
     public function actionAprobados(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
         $apro='Si';
             $id=Yii::$app->user->identity->id;
@@ -236,6 +245,7 @@ class AlumcreditosController extends Controller
     }
 
     public function actionReport() {
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
             $apro='Si';
             // get your HTML raw content without any layouts or scripts
@@ -282,6 +292,7 @@ class AlumcreditosController extends Controller
     }
 
     public function actionBajaalumno(){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
             $apro='No';
             $id=Yii::$app->user->identity->id;
@@ -301,6 +312,7 @@ class AlumcreditosController extends Controller
            }
     }
     public function actionElimi($id){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
        
             if (Yii::$app->request->get("id"))
@@ -326,6 +338,7 @@ class AlumcreditosController extends Controller
     }
 
     public function actionEditar($id){
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 20 && Yii::$app->user->identity->role_id <= 29){
        
              if (Yii::$app->request->get("id"))
@@ -360,8 +373,9 @@ class AlumcreditosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    /*public function actionCreate()
     {
+        \Yii::$app->language = 'es';
         $model = new Alumcreditos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -371,7 +385,7 @@ class AlumcreditosController extends Controller
                 'model' => $model,
             ]);
         }
-    }
+    }*/
 
     /**
      * Updates an existing Alumcreditos model.
@@ -379,7 +393,7 @@ class AlumcreditosController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+   /* public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
@@ -390,7 +404,7 @@ class AlumcreditosController extends Controller
                 'model' => $model,
             ]);
         }
-    }
+    }*/
 
     /**
      * Deletes an existing Alumcreditos model.
@@ -398,12 +412,12 @@ class AlumcreditosController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+  /*  public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
+    }*/
 
     /**
      * Finds the Alumcreditos model based on its primary key value.

@@ -37,6 +37,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
         $searchModel = new UserSearch();
 
@@ -76,6 +77,7 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+          \Yii::$app->language = 'es';
           if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
 
           $model = new SignupForm();
@@ -103,6 +105,7 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        \Yii::$app->language = 'es';
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id >= 30){
        
         $model = $this->findModel($id);
