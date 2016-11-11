@@ -215,4 +215,7 @@ class AdministrativoController extends Controller
        }       
     }
 
+    public function actionHomeadmin(){
+        return $this->render('homeadmin');
+    }
 }

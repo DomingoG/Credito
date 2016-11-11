@@ -14,6 +14,7 @@ use backend\models\Alumcreditos;
 use backend\models\AlumcreditosSearch;
 use backend\models\Administrativo;
 use backend\models\Alumno;
+use backend\models\SignupFormAlumno;
 use kartik\mpdf\Pdf;
 
 /**
@@ -31,8 +32,9 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error','create'],
                         'allow' => true,
+                        'roles' => ['?'],
                     ],
                     [
                         'actions' => ['logout', 'index','creditolista','vermas','registro','permiso','reportealumno','report','perfil'],
@@ -341,6 +343,24 @@ class SiteController extends Controller
             return $this->redirect(['site/permiso']);
             //return $this->render('site/nopermitido');
             }    
+    }
+
+     public function actionCreate()
+    {
+          \Yii::$app->language = 'es';
+         
+          $model = new SignupFormAlumno();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                return $this->redirect(['site/login']);
+            }
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+       
     }
 
 

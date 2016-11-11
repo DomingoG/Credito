@@ -170,4 +170,8 @@ class UserController extends Controller
             }
     }*/
 
+    public function actionHomeuser(){
+        return $this->render('homeuser');
+    }
+
 }
